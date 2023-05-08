@@ -54,6 +54,14 @@ package com.feibei.springbootbase.config.auth;/**
  * 项目：springbootbase
  * 描述：Spring Security Configure
  * @date 2023/4/29 22:05
+ * @author zhf
+ * 项目：springbootbase
+ * 描述：Spring Security Configure
+ * @date 2023/4/29 22:05
+ * @author zhf
+ * 项目：springbootbase
+ * 描述：Spring Security Configure
+ * @date 2023/4/29 22:05
  **/
 
 /**
@@ -63,7 +71,9 @@ package com.feibei.springbootbase.config.auth;/**
  * @date 2023/4/29 22:05
  **/
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -72,6 +82,17 @@ import org.springframework.security.web.util.matcher.OrRequestMatcher;
 @Configuration
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
+    //springboot 对 security 默认配置中  在工厂中默认创建 AuthenticationManager
+    @Autowired
+    public void initialize(AuthenticationManagerBuilder builder) throws Exception {
+        System.out.println("springboot 默认配置: " + builder);
+    }
+
+    //自定义AuthenticationManager  推荐  并没有在工厂中暴露出来
+    @Override
+    public void configure(AuthenticationManagerBuilder builder) throws Exception {
+        System.out.println("自定义AuthenticationManager: " + builder);
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
